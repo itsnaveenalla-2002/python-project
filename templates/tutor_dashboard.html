@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Tutor Dashboard 👨‍🏫</h2>
+
+<p>Welcome, {{ session['name'] }}</p>
+
+<ul>
+    <li><a href="/add-slot">Add Slot</a></li>
+    <li><a href="/my-slots">View My Slots</a></li>
+</ul>
+
+{% endblock %}

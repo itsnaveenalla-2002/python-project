@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>My Bookings 📌</h2>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking['date'] }}</td>
+        <td>{{ booking['time'] }}</td>
+        <td>{{ booking['status'] }}</td>
+        <td>
+            {% if booking['status'] == 'booked' %}
+                <a href="/cancel/{{ booking['id'] }}">Cancel</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

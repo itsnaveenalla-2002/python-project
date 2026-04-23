@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Available Slots 📅</h2>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+         <th>Tutor Name</th>
+        <th>Subject</th>
+        <th>Experience</th>
+        <th>Qualification</th>
+        <th>Action</th>
+    </tr>
+
+    {% for slot in slots %}
+    <tr>
+        <td>{{ slot['date'] }}</td>
+        <td>{{ slot['time'] }}</td>
+         <td>{{ slot['name'] }}</td>
+        <td>{{ slot['subject'] }}</td>
+        <td>{{ slot['experience'] }}</td>
+        <td>{{ slot['qualification'] }}</td>
+        <td>
+            <a href="/book/{{ slot['id'] }}">Book</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

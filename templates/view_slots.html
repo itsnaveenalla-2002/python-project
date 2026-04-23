@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>My Slots 📅</h2>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+    </tr>
+
+    {% for slot in slots %}
+    <tr>
+        <td>{{ slot['date'] }}</td>
+        <td>{{ slot['time'] }}</td>
+        <td>
+            {% if slot['is_booked'] == 0 %}
+                Available
+            {% else %}
+                Booked
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
