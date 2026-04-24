@@ -1,46 +1,44 @@
 {% extends 'base.html' %}
 
-{% block title %}My Profile{% endblock %}
-
 {% block content %}
-
 <h2>My Profile</h2>
 
+<div class="card">
 <form method="POST">
-    <label>Name:</label>
-    <input type="text" name="name" value="{{ user['name' ]}}"><br><br>
 
-    <label>Email:</label>
-    <input type="email" name="email" value="{{ user['email'] }}"><br><br>
+    <!-- COMMON -->
+    <label>Name</label><br>
+    <input type="text" name="name" value="{{ user.name }}"><br><br>
 
-    {% if session['role'] == 'tutor' %}
+    <label>Email</label><br>
+    <input type="email" name="email" value="{{ user.email }}" readonly><br><br>
 
-        <h3>Tutor Details 🎓</h3>
+    <!-- 🎓 STUDENT FIELDS -->
+    {% if session['role'] == 'student' %}
+        <label>🎓 Class / Course</label><br>
+        <input type="text" name="course" value="{{ user.course }}"><br><br>
 
-        <label>Subject:</label><br>
-        <input type="text" name="subject" value="{{ tutor['subject'] if tutor else '' }}"><br><br>
+        <label>📍 Address</label><br>
+        <input type="text" name="address" value="{{ user.address }}"><br><br>
 
-        <label>Experience:</label><br>
-        <input type="text" name="experience" value="{{ tutor['experience'] if tutor else '' }}"><br><br>
-
-        <label>Qualification:</label><br>
-        <input type="text" name="qualification" value="{{ tutor['qualification'] if tutor else '' }}"><br><br>
-
+        <label>📚 Preferred Subject</label><br>
+        <input type="text" name="subject" value="{{ user.subject }}"><br><br>
     {% endif %}
 
+    <!-- 👨‍🏫 TUTOR FIELDS -->
+    {% if session['role'] == 'tutor' and tutor %}
+        <label>Subject</label><br>
+        <input type="text" name="tutor_subject" value="{{ tutor.subject }}"><br><br>
 
-    <button type="submit">Update</button>
+        <label>Experience</label><br>
+        <input type="text" name="experience" value="{{ tutor.experience }}"><br><br>
+
+        <label>Qualification</label><br>
+        <input type="text" name="qualification" value="{{ tutor.qualification }}"><br><br>
+    {% endif %}
+
+    <button class="btn btn-blue">Update</button>
+
 </form>
-
-<br>
-{% if tutor %}
-    <h3>Tutor Details</h3>
-    <p><b>Subject:</b> {{ tutor.subject }}</p>
-    <p><b>Experience:</b> {{ tutor.experience }}</p>
-{% endif %}
-
-<br>
-
-<a href="/logout">Logout</a>
-
+</div>
 {% endblock %}

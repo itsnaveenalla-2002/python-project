@@ -3,51 +3,182 @@
 <head>
     <title>{% block title %}Tutor App{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f5f9;
+        }
+
+        /* 🔵 SIDEBAR */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background: #1e293b;
+            color: white;
+            position: fixed;
+            padding-top: 20px;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #cbd5f5;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #334155;
+            color: white;
+        }
+
+        /* 🔝 HEADER */
+        .header {
+            margin-left: 220px;
+            background: #0ea5e9;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 📄 CONTENT */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            min-height: 80vh;
+        }
+
+        /* 📦 CARD */
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        /* 🔘 BUTTON */
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-green { background: #22c55e; }
+        .btn-blue { background: #3b82f6; }
+        .btn-red { background: #ef4444; }
+
+        /* 🔔 FLASH */
+        .flash {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        /* 🔻 FOOTER */
+        .footer {
+            margin-left: 220px;
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        /* 📱 MOBILE */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .header,
+            .content,
+            .footer {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <!-- 🔝 HEADER -->
-    <header style="background:#92c0ca; color:rgb(255, 255, 255); padding:10px;">
-        <h2>Tutor Booking System</h2>
+<!-- 🔵 SIDEBAR -->
+{% if session.get('user_id') %}
+<div class="sidebar">
+    <h3>Tutor App</h3>
 
-        {% if session.get('user_id') %}
-            <span>Welcome, {{ session['name'] }}</span> |
-            <a href="/dashboard" style="color:white;">Dashboard</a> |
-            <a href="/all-slots" style="color:white;">Book Slot</a> |
-             <a href="/tutors" style="color:white;">All Tutors</a> | 
-             <a href="/profile" style="color:white;">Profile</a> |
-            <a href="/my-bookings" style="color:white;">My Bookings</a> |
-            <a href="/add-slot" style="color:white;">Add Slot</a> |
-            <a href="/my-slots" style="color:white;">My Slots</a> |
-            <a href="/logout" style="color:white;">Logout</a>
-        {% else %}
-            <a href="/login" style="color:white;">Login</a> |
-            <a href="/register" style="color:white;">Register</a>
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/profile">👤 Profile</a>
+    <a href="/all-slots">📅 Book Slot</a>
+    <a href="/tutors">👨‍🏫 Tutors</a>
+    <a href="/my-bookings">📖 My Bookings</a>
+
+    {% if session['role'] == 'tutor' %}
+        <a href="/add-slot">➕ Add Slot</a>
+        <a href="/my-slots">📋 My Slots</a>
+    {% endif %}
+
+    {% if session['role'] == 'admin' %}
+        <a href="/admin/users">👥 Users</a>
+        <a href="/admin/tutors">✅ Approvals</a>
+    {% endif %}
+
+    <a href="/logout">🚪 Logout</a>
+</div>
+{% endif %}
+
+<!-- 🔝 HEADER -->
+<div class="header">
+    <h3>Tutor Booking System</h3>
+
+    {% if session.get('user_id') %}
+        <span>{{ session['name'] }} ({{ session['role'] }})</span>
+    {% endif %}
+</div>
+
+<!-- 📄 CONTENT -->
+<div class="content">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
+    {% endwith %}
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="/all-slots">Book Slot</a>
-            <a href="/my-bookings">Bookings</a>
-        </nav>
+    {% block content %}
+    {% endblock %}
 
-    </header>
+</div>
 
-    <hr>
-
-    <!-- 📄 PAGE CONTENT -->
-    <div>
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    <hr>
-
-    <!-- 🔻 FOOTER -->
-    <footer style="background:#333; color:rgb(255, 255, 255); padding:10px; margin-top:20px;">
-        <p>© 2026 Tutor Booking System | Built with Flask</p>
-    </footer>
+<!-- 🔻 FOOTER -->
+<div class="footer">
+    <p>© 2026 Tutor Booking System | All Rights Reserved</p>
+</div>
 
 </body>
 </html>

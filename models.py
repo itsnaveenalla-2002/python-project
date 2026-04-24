@@ -33,6 +33,21 @@ def init_db():
     )
     ''')
 
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN course TEXT")
+    except:
+        pass
+
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN address TEXT")
+    except:
+        pass
+
+    try:
+            cursor.execute("ALTER TABLE users ADD COLUMN subject TEXT")
+    except:
+        pass
+
     # Bookings table
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS bookings (

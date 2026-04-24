@@ -1,27 +1,131 @@
+/* 🔹 PAGE BACKGROUND */
 body {
-    font-family: Arial;
-    background-color: #f4f4f4;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* 🔹 CENTER CONTAINER */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+/* 🔹 LOGIN CARD */
+.login-card {
+    width: 320px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     text-align: center;
 }
 
-h2 {
-    color: #333;
+/* 🔥 SLIDE IN */
+.slide-in {
+    animation: slideIn 0.6s ease;
 }
 
-table {
-    margin: auto;
-    border-collapse: collapse;
-    width: 60%;
+@keyframes slideIn {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-table, th, td {
-    border: 1px solid #333;
-    padding: 10px;
+/* 🔥 FADE TEXT */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
 }
 
-button {
-    padding: 8px 15px;
-    background-color: green;
-    color: white;
+.fade-in.delay {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* 🔹 INPUT GROUP (FLOATING LABEL) */
+.input-group {
+    position: relative;
+    margin: 18px 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+/* LABEL */
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: white;
+    padding: 0 5px;
+    color: #777;
+    transition: 0.3s;
+}
+
+/* FLOAT EFFECT */
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 12px;
+    color: #2563eb;
+}
+
+/* 🔹 BUTTON */
+.btn-blue {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
     border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-blue:hover {
+    transform: scale(1.05);
+    background: #1d4ed8;
+}
+
+/* 🔹 TEXT LINKS */
+.forgot {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #666;
+}
+
+.register-text {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register-text a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
 }

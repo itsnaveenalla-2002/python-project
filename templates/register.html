@@ -1,19 +1,127 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
 
-{% block content %}
-<h2>Register</h2>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-<form method="POST">
-    <input type="text" name="name" placeholder="Name"><br>
-    <input type="email" name="email" placeholder="Email"><br>
-    <input type="password" name="password" placeholder="Password"><br>
+        /* 🔹 MAIN CONTAINER */
+        .container {
+            display: flex;
+            height: 100vh;
+        }
 
-    <select name="role">
-        <option value="student">Student</option>
-        <option value="tutor">Tutor</option>
-    </select><br>
+        /* 🔵 LEFT SIDE */
+        .left {
+            flex: 1;
+            background: linear-gradient(135deg, #2563eb, #1e3a8a);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+        }
 
-    <button type="submit">Register</button>
-</form>
+        .left h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
 
-{% endblock %}
+        .left p {
+            font-size: 16px;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        /* ⚪ RIGHT SIDE */
+        .right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f6f9;
+        }
+
+        /* FORM BOX */
+        .form-box {
+            background: white;
+            padding: 30px;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-box h2 {
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 🔵 LEFT SIDE -->
+    <div class="left">
+        <h1>🎓 Tutor Booking</h1>
+        <p>
+            Join our platform and connect with expert tutors.  
+            Learn faster, smarter, and better.  
+            Start your journey today!
+        </p>
+    </div>
+
+    <!-- ⚪ RIGHT SIDE -->
+    <div class="right">
+        <div class="form-box">
+
+            <h2>Register</h2>
+
+            <form method="POST">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <input type="email" name="email" placeholder="Enter Email" required>
+                <input type="password" name="password" placeholder="Enter Password" required>
+
+                <select name="role">
+                    <option value="student">Student</option>
+                    <option value="tutor">Tutor</option>
+                </select>
+
+                <button type="submit">Register</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

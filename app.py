@@ -1,13 +1,14 @@
 from flask import Flask
 from models import get_db_connection, init_db
 from flask import request, redirect, session,render_template,flash
+from flask import Flask, render_template, request, redirect, flash
 app = Flask(__name__)
 app.secret_key = "supersecretkey123"
 init_db()
 
 @app.route('/')
 def home():
-    return "Tutor Booking System Running 🚀"
+    return redirect('/login')
 
 # ✅ Register Route
 @app.route('/register', methods=['GET', 'POST'])
@@ -120,9 +121,9 @@ def add_slot():
     if 'user_id' not in session:
         return redirect('/login')
 
-    # ❗ Only tutor allowed
     if session['role'] != 'tutor':
-        return "Access Denied ❌"
+        flash("Access Denied ❌", "error")
+        return redirect('/dashboard')
 
     if request.method == 'POST':
         date = request.form['date']
@@ -140,10 +141,10 @@ def add_slot():
         conn.commit()
         conn.close()
 
-        return "Slot Added Successfully ✅"
+        flash("Slot Added Successfully ✅", "success")
+        return redirect('/add-slot')   # 🔥 stays on same page
 
     return render_template('add_slot.html')
-
 # view slots for tutor
 @app.route('/my-slots')
 def my_slots():
@@ -209,33 +210,32 @@ def all_slots():
 def book_slot(slot_id):
     if 'user_id' not in session:
         return redirect('/login')
-
+    
     if session['role'] != 'student':
-        return "Access Denied ❌"
+        flash("Access Denied ❌")
+        return redirect('/all-slots')
 
     student_id = session['user_id']
 
     conn = get_db_connection()
     cursor = conn.cursor()
-
-    # 🔍 Get slot details
+    
     cursor.execute('SELECT * FROM slots WHERE id = ?', (slot_id,))
     slot = cursor.fetchone()
 
     if slot is None:
-        return "Slot not found ❌"
-
-    # ❌ Prevent double booking
+        flash("Slot not found ❌")
+        return redirect('/all-slots')
     if slot['is_booked'] == 1:
-        return "Already booked ❌"
+        flash("Already booked ❌")
+        return redirect('/all-slots')
 
-    # ✅ Insert booking
+    # ✅ Booking
     cursor.execute('''
     INSERT INTO bookings (student_id, tutor_id, slot_id, status)
     VALUES (?, ?, ?, ?)
     ''', (student_id, slot['tutor_id'], slot_id, 'booked'))
-
-    # ✅ Mark slot as booked
+    
     cursor.execute('''
     UPDATE slots SET is_booked = 1 WHERE id = ?
     ''', (slot_id,))
@@ -243,7 +243,10 @@ def book_slot(slot_id):
     conn.commit()
     conn.close()
 
-    return "Slot Booked Successfully ✅"
+    flash("Slot Booked Successfully ✅")
+
+    
+    return redirect(request.referrer or '/all-slots')
 
 
 
@@ -442,9 +445,18 @@ def profile():
         cursor.execute('''
         UPDATE users SET name = ?, email = ? WHERE id = ?
         ''', (name, email, user_id))
+        if session['role'] == 'student':
+            course = request.form.get('course')
+            address = request.form.get('address')
+            subject = request.form.get('subject')
 
+            cursor.execute("""
+                UPDATE users 
+             SET name=?, email=?, course=?, address=?, subject=?
+             WHERE id=?
+             """, (name, email, course, address, subject, user_id))
         # ✅ If tutor → update tutor details also
-        if session['role'] == 'tutor':
+        elif session['role'] == 'tutor':
             subject = request.form['subject']
             experience = request.form['experience']
             qualification = request.form['qualification']
@@ -491,6 +503,36 @@ def view_tutors():
     conn.close()
 
     return render_template('tutors.html', tutors=tutors)
+
+#forgotpassword
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        new_password = request.form['password']
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+        user = cursor.fetchone()
+
+        if user:
+            cursor.execute(
+                "UPDATE users SET password = ? WHERE email = ?",
+                (new_password, email)
+            )
+            conn.commit()
+            conn.close()
+
+            flash("Password updated successfully!")
+            return redirect('/login')
+        else:
+            conn.close()
+            flash("Email not found!")
+
+    return render_template('forgot_password.html')
 
 
 @app.route('/logout')

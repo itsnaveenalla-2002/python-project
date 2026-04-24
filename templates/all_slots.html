@@ -1,33 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h2>Available Slots</h2>
 
-<h2>Available Slots 📅</h2>
+{% for slot in slots %}
+<div class="card">
+    <h3>{{ slot.name }}</h3>
+    <p>📘 {{ slot.subject }}</p>
+    <p>⏱ {{ slot.date }} | {{ slot.time }}</p>
 
-<table border="1">
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-         <th>Tutor Name</th>
-        <th>Subject</th>
-        <th>Experience</th>
-        <th>Qualification</th>
-        <th>Action</th>
-    </tr>
-
-    {% for slot in slots %}
-    <tr>
-        <td>{{ slot['date'] }}</td>
-        <td>{{ slot['time'] }}</td>
-         <td>{{ slot['name'] }}</td>
-        <td>{{ slot['subject'] }}</td>
-        <td>{{ slot['experience'] }}</td>
-        <td>{{ slot['qualification'] }}</td>
-        <td>
-            <a href="/book/{{ slot['id'] }}">Book</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <a href="/book/{{ slot.id }}" 
+       class="btn btn-green"
+       onclick="return confirm('Confirm booking?')">
+       Book Slot
+    </a>
+</div>
+{% endfor %}
 
 {% endblock %}
