@@ -1,0 +1,25 @@
+<h2>My Bookings</h2>
+
+<table border="1">
+<tr>
+    <th>Student</th>
+    <th>Tutor</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for booking in bookings %}
+<tr>
+    <td>{{ booking.student.name }}</td>
+    <td>{{ booking.tutor.name }}</td>
+    <td>{{ booking.slot.date }}</td>
+    <td>{{ booking.slot.time }}</td>
+    <td>{{ booking.status }}</td>
+    <td>
+        <a href="/dashboard/cancel/{{ booking.id }}/">Cancel</a>
+    </td>
+</tr>
+{% endfor %}
+</table>

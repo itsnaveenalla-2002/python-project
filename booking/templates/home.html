@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .hero{
+        background: linear-gradient(to right,#2563eb,#1e40af);
+        color:white;
+        padding:80px 50px;
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:48px;
+        margin-bottom:20px;
+    }
+
+    .hero p{
+        font-size:20px;
+        margin-bottom:30px;
+    }
+
+    .btn{
+        padding:12px 25px;
+        margin:10px;
+        border:none;
+        border-radius:8px;
+        text-decoration:none;
+        font-weight:bold;
+    }
+
+    .btn1{
+        background:white;
+        color:#2563eb;
+    }
+
+    .btn2{
+        background:#facc15;
+        color:black;
+    }
+
+    .section{
+        padding:60px 30px;
+        text-align:center;
+    }
+
+    .cards{
+        display:flex;
+        justify-content:center;
+        gap:20px;
+        flex-wrap:wrap;
+    }
+
+    .card{
+        background:#f8fafc;
+        width:280px;
+        padding:25px;
+        border-radius:12px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .stats{
+        background:#1e293b;
+        color:white;
+        padding:50px;
+        display:flex;
+        justify-content:space-around;
+        flex-wrap:wrap;
+    }
+</style>
+
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Find the Best Tutors For Your Child</h1>
+    <p>Online & Offline tutoring with verified tutors</p>
+
+    <a href="/register" class="btn btn1">Book Demo</a>
+    <a href="/register" class="btn btn2">Join as Tutor</a>
+</div>
+
+
+<!-- FEATURES -->
+<div class="section">
+    <h2>Why Choose Us?</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Verified Tutors</h3>
+            <p>Experienced and trusted tutors.</p>
+        </div>
+
+        <div class="card">
+            <h3>Flexible Timing</h3>
+            <p>Choose classes as per your schedule.</p>
+        </div>
+
+        <div class="card">
+            <h3>Online / Offline</h3>
+            <p>Learn from home or in person.</p>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- STATS -->
+<div class="stats">
+
+    <div>
+        <h2>500+</h2>
+        <p>Tutors</p>
+    </div>
+
+    <div>
+        <h2>1000+</h2>
+        <p>Students</p>
+    </div>
+
+    <div>
+        <h2>98%</h2>
+        <p>Success Rate</p>
+    </div>
+
+</div>
+
+
+<!-- SUBJECTS -->
+<div class="section">
+    <h2>Subjects We Offer</h2>
+
+    <div class="cards">
+
+        <div class="card">Mathematics</div>
+        <div class="card">Science</div>
+        <div class="card">English</div>
+        <div class="card">Python Programming</div>
+
+    </div>
+</div>
+
+
+<!-- TESTIMONIAL -->
+<div class="section">
+    <h2>What Parents Say</h2>
+
+    <div class="card" style="margin:auto;">
+        "Excellent tutors and great support."
+    </div>
+</div>
+
+{% endblock %}

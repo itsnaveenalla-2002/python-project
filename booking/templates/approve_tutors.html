@@ -1,0 +1,19 @@
+<h2>Pending Tutors</h2>
+
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Action</th>
+</tr>
+
+{% for tutor in tutors %}
+<tr>
+    <td>{{ tutor.name }}</td>
+    <td>{{ tutor.email }}</td>
+    <td>
+        <a href="/dashboard/approve/{{ tutor.id }}/">Approve</a>
+    </td>
+</tr>
+{% endfor %}
+</table>

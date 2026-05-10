@@ -1,0 +1,29 @@
+<h2>All Bookings</h2>
+
+<table border="1">
+<tr>
+    <th>Student</th>
+    <th>Tutor</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Action</th>
+</tr>
+
+<td>
+    <a href="/dashboard/cancel-booking/{{ booking.id }}/">Cancel</a>
+    |
+    <a href="/dashboard/reassign/{{ booking.id }}/">Reassign</a>
+</td>
+
+{% for booking in bookings %}
+<tr>
+    <td>{{ booking.student.name }}</td>
+    <td>{{ booking.tutor.name }}</td>
+    <td>{{ booking.slot.date }}</td>
+    <td>{{ booking.slot.time }}</td>
+    <td>
+        <a href="/dashboard/cancel-booking/{{ booking.id }}/">Cancel</a>
+    </td>
+</tr>
+{% endfor %}
+</table>

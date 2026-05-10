@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tutor Dashboard</h1>
+
+<a href="/dashboard/create-slot/">Create Slot</a><br><br>
+<a href="/dashboard/my-slots/">View My Slots</a>
+<a href="/dashboard/my-bookings/">View Bookings</a>
+<a href="{% url 'logout' %}">Logout</a>
+{% endblock %}
