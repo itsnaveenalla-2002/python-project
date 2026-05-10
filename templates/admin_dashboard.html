@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Admin Dashboard 🛠️</h2>
+
+<p>Welcome, {{ session['name'] }}</p>
+
+<ul>
+    <li><a href="/admin/users">View All Users</a></li>
+    <li><a href="/admin/tutors">Approve Tutors</a></li>
+    <li><a href="/all-slots">View All Slots</a></li>
+    <li><a href="/my-bookings">View All Bookings</a></li>
+</ul>
+
+{% endblock %}

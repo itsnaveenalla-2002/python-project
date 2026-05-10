@@ -1,0 +1,12 @@
+{% block content %}
+
+<h2>Student Dashboard 🎓</h2>
+
+<p>Welcome, {{ session['name'] }}</p>
+
+<ul>
+    <li><a href="/all-slots">View Available Slots</a></li>
+    <li><a href="/my-bookings">My Bookings</a></li>
+</ul>
+
+{% endblock %}

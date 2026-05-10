@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Available Slots</h2>
+
+{% for slot in slots %}
+<div class="card">
+    <h3>{{ slot.name }}</h3>
+    <p>📘 {{ slot.subject }}</p>
+    <p>⏱ {{ slot.date }} | {{ slot.time }}</p>
+
+    <a href="/book/{{ slot.id }}" 
+       class="btn btn-green"
+       onclick="return confirm('Confirm booking?')">
+       Book Slot
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}

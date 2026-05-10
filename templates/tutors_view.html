@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>All Tutors 👨‍🏫</h2>
+
+{% if tutors %}
+    <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Experience</th>
+        <th>Qualification</th>
+    </tr>
+
+    {% for t in tutors %}
+    <tr>
+        <td>{{ t['name'] }}</td>
+        <td>{{ t['subject'] }}</td>
+        <td>{{ t['experience'] }}</td>
+        <td>{{ t['qualification'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No tutors available ❌</p>
+{% endif %}
+
+{% endblock %}
